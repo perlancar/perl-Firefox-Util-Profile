@@ -13,6 +13,7 @@ use Log::ger;
 our %SPEC;
 
 $SPEC{list_firefox_profiles} = {
+    v => 1.1,
     summary => 'List available Firefox profiles',
     description => <<'_',
 
@@ -47,11 +48,12 @@ sub list_firefox_profiles {
         my $href = $hoh->{$section};
         if ($section =~ /\AProfile/) {
             my $path;
-            if (defined($path = $section->{Path})) {
+            if (defined($path = $href->{Path})) {
                 $path = "$ff_dir/$path" if $href->{IsRelative};
                 push @rows, {
                     name => $href->{Name} // $section,
                     path => $path,
+                    ini_section => $section,
                 };
             } else {
                 log_warn "$ini_path: No Path parameter for section $section, section ignored";
@@ -62,7 +64,7 @@ sub list_firefox_profiles {
         # ([Install...] sections)
     }
 
-    unless ($args{details}) {
+    unless ($args{detail}) {
         @rows = map { $_->{name} } @rows;
     }
 
