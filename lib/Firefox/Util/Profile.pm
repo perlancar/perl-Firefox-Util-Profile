@@ -10,6 +10,9 @@ use strict;
 use warnings;
 use Log::ger;
 
+use Exporter 'import';
+our @EXPORT_OK = qw(list_firefox_profiles);
+
 our %SPEC;
 
 $SPEC{list_firefox_profiles} = {
