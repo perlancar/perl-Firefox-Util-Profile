@@ -84,4 +84,10 @@ sub list_firefox_profiles {
 
 Other C<Firefox::Util::*> modules.
 
+L<Chrome::Util::Profile>
+
+L<Vivaldi::Util::Profile>
+
+L<Opera::Util::Profile>
+
 =cut
