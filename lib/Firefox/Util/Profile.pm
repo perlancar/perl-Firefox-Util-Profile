@@ -74,6 +74,41 @@ sub list_firefox_profiles {
     [200, "OK", \@rows];
 }
 
+$SPEC{get_firefox_profile_dir} = {
+    v => 1.1,
+    summary => 'Given a Firefox profile name, return its directory',
+    description => <<'_',
+
+Return undef if Firefox profile is unknown.
+
+_
+    args_as => 'array',
+    args => {
+        profile => {
+            schema => 'firefox::profile_name*',
+            cmdline_aliases => {l=>{}},
+            req => 1,
+            pos => 0,
+        },
+    },
+    result_naked => 1,
+};
+sub get_firefox_profile_dir {
+    my $profile = shift;
+
+    return unless defined $profile;
+    my $res = list_firefox_profiles(detail=>1);
+    unless ($res->[0] == 200) {
+        log_warn "Can't list Firefox profile: $res->[0] - $res->[1]";
+        return;
+    };
+
+    for (@{ $res->[2] }) {
+        return $_->{path} if $_->{name} eq $profile;
+    }
+    return;
+}
+
 1;
 # ABSTRACT:
 
