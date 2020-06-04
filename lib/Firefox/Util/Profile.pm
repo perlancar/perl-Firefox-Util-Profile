@@ -15,6 +15,8 @@ our @EXPORT_OK = qw(list_firefox_profiles);
 
 our %SPEC;
 
+# TODO: allow selecting local Firefox installation
+
 $SPEC{list_firefox_profiles} = {
     v => 1.1,
     summary => 'List available Firefox profiles',
