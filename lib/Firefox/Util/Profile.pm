@@ -22,7 +22,8 @@ $SPEC{list_firefox_profiles} = {
     summary => 'List available Firefox profiles',
     description => <<'_',
 
-This utility will read ~/.mozilla/firefox/profiles.ini and extracts the list of
+This utility will read ~/.mozilla/firefox/profiles.ini (or
+%APPDATA%\\Mozilla\\Firefox\\profiles.ini on Windows) and extracts the list of
 profiles.
 
 _
@@ -39,7 +40,7 @@ sub list_firefox_profiles {
 
     my %args = @_;
 
-    my $ff_dir   = "$ENV{HOME}/.mozilla/firefox";
+    my $ff_dir   = $^O eq 'MSWin32' ? "$ENV{APPDATA}/Mozilla/Firefox" : "$ENV{HOME}/.mozilla/firefox";
     my $ini_path = "$ff_dir/profiles.ini";
     unless (-f $ini_path) {
         return [412, "Cannot find $ini_path"];
