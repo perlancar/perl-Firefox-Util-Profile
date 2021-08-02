@@ -2,3 +2,4 @@ Firefox-Util-Profile-*
 .build
 *~
 nytprof*
+.DS_Store
